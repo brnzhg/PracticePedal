@@ -56,7 +56,10 @@ about 40 % firmer. PLA is about 65 % stiffer than PETG at the same thickness.
 
 ## Printing
 
-STLs are in `out/stl/`, already in print orientation. STEP files are in `out/step/`.
+STL and STEP files are not committed. Get them from the latest run of the **Build CAD** workflow
+on GitHub (Actions tab, `practice-pedal-cad` artifact), from a release, or build them yourself with
+`uv run python -m pedal_cad.build`, which writes them to `out/stl/` and `out/step/`. STLs come out
+already in print orientation.
 
 | File | Orientation | Notes |
 |---|---|---|
@@ -93,9 +96,12 @@ STLs are in `out/stl/`, already in print orientation. STEP files are in `out/ste
 
 ### Wiring
 
-![wiring side of the sled](out/drawings/sled_wiring_side.svg)
+![wiring diagram](out/drawings/wiring.svg)
 
-The drawing shows the sled from below, as you see it while soldering (rear edge at the top).
+The diagram shows the sled from below, as you see it while soldering (rear edge at the top), so
+left and right are mirrored: the left pedal's switch is on the right. To see the same thing in 3D,
+run `uv run python -m pedal_cad.view sled nano battery power_switch choc_left choc_center choc_right`
+and look from underneath. `out/drawings/sled_wiring_side.svg` is the plain outline version.
 Every switch connects one pin to its nice!nano input and the other to ground; which pin is which
 doesn't matter.
 
