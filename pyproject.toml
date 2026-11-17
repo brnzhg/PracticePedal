@@ -4,10 +4,10 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "build123d>=0.13.0",
-    "mypy>=2.4.1",
 ]
 
 [dependency-groups]
 dev = [
+    "mypy>=2.4.1",
     "ocp-vscode>=4.2.0",
 ]
