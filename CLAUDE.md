@@ -8,7 +8,8 @@ repo root. See README.md for the design, parts, and assembly.
 - All dimensions live in `pedal_cad/params.py`; geometry in `parts.py`; SVG drawings in `draw.py`.
 - `uv run python -m pedal_cad.build` rebuilds everything, runs the fit checks, and rewrites `out/`
   (STEP, STL, drawings). It exits non-zero if a check fails. Run it after any geometry change and
-  commit the regenerated `out/` files with the source.
+  commit the regenerated `out/drawings/` with the source. `out/stl/` and `out/step/` are gitignored;
+  CI (`.github/workflows/cad.yml`) builds them as an artifact, and attaches them to a release on `v*` tags.
 - `uv run python -m pedal_cad.view [exploded | pressed <key> | <part>...]` sends the model to the
   OCP CAD Viewer panel in VS Code (port 3939). Geometry only, no checks, no exports.
 - STLs are exported in print orientation (sled, top, riser flipped); STEPs are as used.

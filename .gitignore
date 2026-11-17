@@ -2,3 +2,5 @@
 __pycache__/
 .zmk-workspace/
 out/drawings/*.png
+out/stl/
+out/step/
