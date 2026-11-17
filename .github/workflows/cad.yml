@@ -1,6 +1,7 @@
 name: Build CAD
 on:
   push:
+    branches: ["**"]    # needed alongside `tags`, or branch pushes are skipped
     paths: ["pedal_cad/**", "pyproject.toml", "uv.lock", ".github/workflows/cad.yml"]
     tags: ["v*"]
   workflow_dispatch:
