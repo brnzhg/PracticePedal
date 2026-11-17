@@ -157,6 +157,20 @@ rebuilds all parts, re-exports `out/`, and runs fit checks: every part is a sing
 parts overlap at rest, and each key can swing to its stop (and 0.3 mm beyond) without hitting
 anything. It exits non-zero if a check fails.
 
+### Viewing the model
+
+With the OCP CAD Viewer extension open in VS Code:
+
+```
+uv run python -m pedal_cad.view                 # assembly at rest
+uv run python -m pedal_cad.view exploded        # parts spread out
+uv run python -m pedal_cad.view pressed left    # a key (left / center / right) at its stop
+uv run python -m pedal_cad.view top sled        # only the named parts
+```
+
+The camera stays put between runs, so you can change a parameter, re-run, and compare. This
+only builds the geometry; it skips the checks and doesn't write `out/`.
+
 Parameters most likely to need a tweak:
 
 | Parameter | Why |
