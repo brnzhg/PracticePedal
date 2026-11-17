@@ -1,0 +1,7 @@
+if SHIELD_PRACTICE_PEDAL
+
+# Bluetooth name, 16 characters max
+config ZMK_KEYBOARD_NAME
+    default "PracticePedal"
+
+endif

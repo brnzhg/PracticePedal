@@ -1,0 +1,6 @@
+# ZMK v0.3 board name. On ZMK main (Zephyr 4.x) the same board is `nice_nano//zmk`.
+include:
+  - board: nice_nano_v2
+    shield: practice_pedal
+  - board: nice_nano_v2
+    shield: settings_reset

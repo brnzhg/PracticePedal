@@ -1,0 +1,4 @@
+name: zmk-keyboard-practice-pedal
+build:
+  settings:
+    board_root: .

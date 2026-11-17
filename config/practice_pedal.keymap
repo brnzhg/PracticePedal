@@ -1,0 +1,84 @@
+/*
+ * PracticePedal keymap.   Key order:  LEFT  CENTRE  RIGHT
+ *
+ * Normal use
+ *   left pedal ............ Page Up    (previous page)
+ *   right pedal ........... Page Down  (next page)
+ *   centre tap ............ Play/Pause
+ *   centre double tap ..... Previous track (restart the backing track)
+ *   centre held + left .... Volume down
+ *   centre held + right ... Volume up
+ *
+ * Settings (press BOTH pedals together and keep them down)
+ *   centre x1 ............. next Bluetooth profile (5 profiles, e.g. iPad / laptop)
+ *   centre x2 ............. forget the pairing on the current profile
+ *   centre x3 ............. USB bootloader (to flash new firmware without opening the case)
+ *
+ * Any binding can be swapped for another key, see https://zmk.dev/docs/keymaps/list-of-keycodes
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+#define BASE 0
+#define MEDIA 1
+#define SETUP 2
+
+#define K_LEFT 0
+#define K_CENTRE 1
+#define K_RIGHT 2
+
+/ {
+    behaviors {
+        // hold = layer, tap = key; the hold wins as soon as a pedal is pressed
+        centre_ht: centre_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <350>;
+            bindings = <&mo>, <&kp>;
+        };
+
+        centre: centre_tap_dance {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&centre_ht MEDIA C_PP>, <&kp C_PREV>;
+        };
+
+        setup: setup_tap_dance {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <400>;
+            bindings = <&bt BT_NXT>, <&bt BT_CLR>, <&bootloader>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        both_pedals {
+            timeout-ms = <40>;
+            key-positions = <K_LEFT K_RIGHT>;
+            layers = <BASE>;
+            bindings = <&mo SETUP>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        base {
+            bindings = <&kp PG_UP  &centre  &kp PG_DN>;
+        };
+
+        media {
+            bindings = <&kp C_VOL_DN  &trans  &kp C_VOL_UP>;
+        };
+
+        setup {
+            bindings = <&none  &setup  &none>;
+        };
+    };
+};
