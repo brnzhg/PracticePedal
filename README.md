@@ -3,7 +3,7 @@
 A 3D-printed Bluetooth page-turner pedal running [ZMK](https://zmk.dev) on a nice!nano.
 Two pedals plus a raised centre key, 152 x 102 x 18.6 mm (the AirTurn PED 500 is 152 x 102 x 18).
 
-![exploded view](out/drawings/exploded.svg)
+![the assembled pedal](out/renders/assembly.png)
 
 | | |
 |---|---|
@@ -17,9 +17,11 @@ Two pedals plus a raised centre key, 152 x 102 x 18.6 mm (the AirTurn PED 500 is
 
 ## How it works
 
-![section through a pedal](out/drawings/section_pedal.svg)
+![exploded view](out/renders/exploded.png)
 
-Front of the pedal is on the left. From the bottom up:
+![section through a pedal at rest](out/renders/section_pedal.png)
+
+Front of the pedal is on the left in the section. From the bottom up:
 
 - **Tray**: floor and outer walls. The thick front wall is the down-stop the pedals land on.
 - **Sled**: the switch plate. It also carries the nice!nano, battery and power switch, so all the
@@ -32,7 +34,10 @@ Front of the pedal is on the left. From the bottom up:
 
 Pressing a pedal rotates it about 2 degrees. The switch actuates at 1.5 mm of stem travel and the
 pedal lands on the padded stop at 2.2 mm, before the switch bottoms out at 3.0 mm, so your foot
-never loads the switch. If you stand on a pedal, ribs under it come down onto the sled 0.4 mm
+never loads the switch.
+
+![section through a pedal, pressed to its stop](out/renders/section_pedal_pressed.png)
+ If you stand on a pedal, ribs under it come down onto the sled 0.4 mm
 later and carry the load into the floor.
 
 The hinge supplies most of the return force (figures printed by the build, for PETG): about 230 gf
@@ -96,12 +101,13 @@ already in print orientation.
 
 ### Wiring
 
-![wiring diagram](out/drawings/wiring.svg)
+![wiring, sled seen from below](out/renders/wiring.png)
 
-The diagram shows the sled from below, as you see it while soldering (rear edge at the top), so
-left and right are mirrored: the left pedal's switch is on the right. To see the same thing in 3D,
+This is the sled from below, as you see it while soldering (rear edge at the top), so left and
+right are mirrored: the left pedal's switch is on the right. [`wiring.svg`](out/drawings/wiring.svg)
+is the same layout as a flat diagram with every nice!nano pin labelled. To turn it around in 3D,
 run `uv run python -m pedal_cad.view sled nano battery power_switch choc_left choc_center choc_right`
-and look from underneath. `out/drawings/sled_wiring_side.svg` is the plain outline version.
+and look from underneath.
 Every switch connects one pin to its nice!nano input and the other to ground; which pin is which
 doesn't matter.
 
@@ -115,6 +121,10 @@ other pin of all three, chained ── GND
 With the board face-up in the sled as in the drawing, D2/D3/D4 and their neighbouring GND pads
 are on the left edge, and the battery pads are the first two on the right edge at the USB end.
 The ribs have notches where the switch wires cross them.
+
+**Charging:** plug USB-C into the nice!nano with the power switch **on**. The switch sits between
+the battery and the board, so with it off USB only powers the board and the battery doesn't
+charge. The nice!nano charges at about 100 mA, so a flat 1000 mAh cell takes around 10 hours.
 
 ## Firmware
 
@@ -176,6 +186,9 @@ uv run python -m pedal_cad.view top sled        # only the named parts
 
 The camera stays put between runs, so you can change a parameter, re-run, and compare. This
 only builds the geometry; it skips the checks and doesn't write `out/`.
+
+The README images in `out/renders/` come from `uv run python -m pedal_cad.render` (a few seconds,
+uses PyVista from the dev group). Re-run it and commit the PNGs when the look of the model changes.
 
 Parameters most likely to need a tweak:
 

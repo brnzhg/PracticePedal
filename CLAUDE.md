@@ -12,6 +12,8 @@ repo root. See README.md for the design, parts, and assembly.
   CI (`.github/workflows/cad.yml`) builds them as an artifact, and attaches them to a release on `v*` tags.
 - `uv run python -m pedal_cad.view [exploded | pressed <key> | <part>...]` sends the model to the
   OCP CAD Viewer panel in VS Code (port 3939). Geometry only, no checks, no exports.
+- `uv run python -m pedal_cad.render` writes the shaded README images to `out/renders/` (PyVista,
+  dev group, not run in CI). Re-run and commit them after visible geometry changes.
 - STLs are exported in print orientation (sled, top, riser flipped); STEPs are as used.
 
 ## Firmware
